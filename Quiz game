@@ -1,0 +1,296 @@
+#include<stdio.h>
+#include<string.h>
+
+int resume();
+int in(int answer);//this function is for input answer from user
+void rules(); // it display some rule to the user
+void win(int score); //this function is for when user is win the game
+void gameover(int score); //this is for when player is out
+void pass(int score); //it uses while user pass the level
+void gamedata(int data,int score); //This function for storing the last data of Game
+
+int level1(int score);//level one
+int level2(int score);//level two
+int level3(int score);//level three
+int level4(int score);//level four
+int level5(int score);//level five
+int level6(int score);//level six
+int level7(int score);//level seven
+int level8(int score);//level eight
+int level9(int score);//level nine
+int level10(int score);//level ten
+
+int main(){
+    printf("WELCOME TO KBB(KON BANEGA BIKHARI)\n");//updated version of kbc-kbb😂😊😂
+    rules();//calling of rules function
+    int score = 0;//starting score is zero
+    printf("The initial score is : %d\n",score);//printing score
+    char menu[10];
+    printf("Continue\nReset\nExit\nEnter from above : ");
+    fgets(menu,10,stdin);
+    if(strcmp(menu,"Continue")==1){
+        printf("Continuing\n");
+        resume();
+    }else if(strcmp(menu,"Reset")==1){
+        printf("Reseting\n");
+        level1(score);
+    }else if(strcmp(menu,"Exit")==1){
+        printf("Exiting\n");
+    }
+    return 0;
+}
+
+int resume(){
+    int data,score;
+    FILE *level;
+    level = fopen("gamedata.txt","r");
+    fscanf(level,"%d",&data);
+    fscanf(level,"%d",&score);
+    fclose(level);
+    printf("LEVEL %d\n",data);
+    switch (data) {
+    case 1:
+        level1(score);
+        break;
+    case 2:
+        level2(score);
+        break;
+    case 3:
+        level3(score);
+        break;
+    case 4:
+        level4(score);
+        break;
+    case 5:
+        level5(score);
+        break;
+    case 6:
+        level6(score);
+        break;
+    case 7:
+        level7(score);
+        break;
+    case 8:
+        level8(score);
+        break;
+    case 9:
+        level9(score);
+        break;
+    case 10:
+        level10(score);
+        break;
+    case 11:
+        printf("Already done The game\n");
+        printf("Are you want to play from Starting (Yes/No): ");
+        char exp[5];
+        scanf("%s",&exp);
+        if(exp=="Yes"||exp=="yes"||exp=="YES"){
+            level1(score);
+        }else{
+            printf("Exiting!!!");
+            break;
+        }
+        break;
+    default:
+        level1(score);
+        break;
+    }
+    return data;
+}
+
+int in(int answer){//this is a function for input answer
+    int ans;//declaration of ans
+    printf("Enter the answer : ");
+    scanf("%d",&ans);//enter answer
+    if(ans==answer){
+        return 1;//this shows that the answer is right
+    }
+    return 0;//this commands answer is wrong
+}
+void rules(){
+    printf("Rules\n");//this is rules
+    printf("1.Answer only in capital letter\n2.Don't use internet while playing\n");
+    printf("3.Honest among rules\n4.Do not cheat\nBEST OF LUCK\n");
+    return;
+}
+
+void win(int score){
+    printf("You Win this Quiz\n");
+    printf("Score is : %d", score);//prints score
+    return;
+}
+
+void gameover(int score){
+    printf("oooooooooooooooooooops!\n");
+    printf("GAME OVER\tTry again\n");//try again showing
+    printf("Score is : %d\n", score);// score display
+    return;
+}
+
+void pass(int score){
+    printf("Successfully you passed level\n");//you passed the level
+    printf("Your current score is : %d\n",score);//showing current score
+    printf("Here is your next Question\n");//create suspence for next question
+    return;
+}
+
+void gamedata(int data,int score){
+    FILE *level;//defines file
+    level = fopen("gamedata.txt","w");//open file for write
+    fprintf(level,"%d\n",data);//writes data in file
+    fprintf(level,"%d\n",score);//writes data in file
+    
+    fclose(level);
+    return;
+}
+
+int level1(int score){
+    int ans= 2;//correct option
+    printf("Which is national tree of india : \n");
+    printf("(1)Banana\n(2)Banyan\n(3)neem\n(4)None of these\n");
+    ans = in(ans);//call function for inputing answer
+    if(ans==1){//for correct answer
+        score +=5;//score add
+        pass(score);//call pass fuction
+        int x = level2(score);
+        return x;//return newer score
+    }
+    gameover(score);
+    gamedata(1,score);//gives data to data fuction for write data in file
+    return 0;//return nothing for incorrect option
+}
+int level2(int score){
+    int ans= 3;//correct option
+    printf("Which is the largest city in punjab : \n");//Question
+    printf("(1)Chandigarh\n(2)Ferozpur\n(3)Ludhiana\n(4)Moga\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=7;//add up score
+        pass(score);//calling function
+        int x = level3(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(2,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level3(int score){
+    int ans= 4;//correct option
+    printf("In which Bhagat singh born : \n");//Question
+    printf("(1)1910\n(2)1908\n(3)1904\n(4)1907\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=10;//add up score
+        pass(score);//calling function
+        int x = level4(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(3,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level4(int score){
+    int ans= 3;//correct option
+    printf("which is the highest peak in india : \n");//Question
+    printf("(1)Mount everest\n(2)Himalya\n(3)Mount Kanchenjunga\n(4)Tibet\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=14;//add up score
+        pass(score);//calling function
+        int x = level5(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(4,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level5(int score){
+    int ans= 1;//correct option
+    printf("Which state of india is known for Backwaters : \n");//Question
+    printf("(1)Kerala\n(2)Tamil nadu\n(3)West bengal\n(4)Maharashtra\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=15;//add up score
+        pass(score);//calling function
+        int x = level6(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(5,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level6(int score){
+    int ans= 2;//correct option
+    printf("Which  city is known for 'City of Lakes' : \n");//Question
+    printf("(1)Jaipur\n(2)udaipur\n(3)Gurgaon\n(4)Bombay\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=20;//add up score
+        pass(score);//calling function
+        int x = level7(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(6,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level7(int score){
+    int ans= 4;//correct option
+    printf("Which is the oldest known civilization in the indian subcontinent : \n");//Question
+    printf("(1)Gupta civilisation\n(2)Maurya civilization\n(3)vedic civilisation\n(4)Harappan Civilisation\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=25;//add up score
+        pass(score);//calling function
+        int x = level8(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(7,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level8(int score){
+    int ans= 4;//correct option
+    printf("Which is the highest civilian award in india : \n");//Question
+    printf("(1)Padam bhushan\n(2)Padam vibhushan\n(3)Padam shri\n(4)Bharat ratna\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=30;//add up score
+        pass(score);//calling function
+        int x = level9(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(8,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level9(int score){
+    int ans= 1;//correct option
+    printf("Which wildlife sanctuary is famous for one-horned rhinoceros in india : \n");//Question
+    printf("(1)Kaziranga National Park\n(2)Jim corbett national park\n(3)Sundarbans national park\n(4)None of the above\n");
+    ans = in(ans);
+    if(ans==1){
+        score +=40;//add up score
+        pass(score);//calling function
+        int x = level10(score);//calling fuction of next level
+        return x;//give back scores
+    }
+    gameover(score);
+    gamedata(9,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
+int level10(int score){
+    int ans= 1;//correct option
+    printf("Which village in india is known for its own postal code but no residents or houses : \n");//Question
+    printf("(1)Malakpur\n(2)Bucchabasti\n(3)Fazilka\n(4)Shani shingnapur\n");
+    ans = in(ans);
+    if(ans==1){
+        score+=134;
+        win(score);
+        gamedata(11,score);//gives data to data fuction for write data in file
+        return score;
+    }
+    gameover(score);
+    gamedata(10,score);//gives data to data fuction for write data in file
+    return 0;//it show the answer is incorrect
+}
